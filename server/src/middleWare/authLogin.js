@@ -3,15 +3,16 @@ const jwt = require('jsonwebtoken');
 const { JWT_ACCESS } = require("../secret");
 
 const isLoggedIn = async(req,res,next)=>{
+  console.log(1)
   try {
      const token = req.cookies.access_token;
-     console.log(token)
+ 
     //  console.log(token)
       if(!token){
         next(createHttpError(404,'User not found '))
       } 
       const decoded = jwt.verify(token,JWT_ACCESS)
-      console.log(decoded)
+ 
       if(!decoded)
       {
         next(createHttpError(404,'invalid token '))
@@ -21,6 +22,7 @@ const isLoggedIn = async(req,res,next)=>{
         
        next()
   } catch (error) {
+    console.log(2)
     next(createHttpError(404,error.message))
   }
 }

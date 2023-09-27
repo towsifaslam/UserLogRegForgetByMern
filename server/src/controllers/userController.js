@@ -13,7 +13,8 @@ const deleteImage = require("../helper/deleteImage");
 const createJsonWebToken = require("../helper/jwt");
 const emailWithNodeMailer = require("../helper/email");
 const runValidation = require('../middleWare/index');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
+const { emit } = require("../app");
 
 
 const getUsers =async(req,res,next)=>{
@@ -280,23 +281,27 @@ const handleUpdatePassword= async(req,res,next)=>{
 }
 const handleForgetPass = async(req,res,next)=>{
   try {
-     const {email} = req.body;
-     const existingUser=await User.findOne(email)
-     if(!existingUser){
+       const {email} = req.body;
+      
+      const user = await User.findOne(email)
+     console.log()
+     if(!user){
       next(createHttpError(404,'user not fond email'))
       return
      }
+      const emailD = user.email
+       
 
-       const forgetToken =await createJsonWebToken({email},JWT_Forget,'10m')
+       const forgetToken =await createJsonWebToken({emailD},JWT_Forget,'10m')
        if(!forgetToken){
         next(createHttpError(404,'invalid token'))
        }
      
        const emailData = {
-        email:existingUser.email,
+        email:user.email,
         subject: 'Account active email',
         html:`
-          <h2>hellow ${existingUser.name} </h2>
+          <h2>hellow ${user.name} </h2>
           <p>Please click here to <a href="${client_url}/api/users/activate/${forgetToken}" target="_blank">active your account</a></p>
       
         `
@@ -317,17 +322,41 @@ const handleForgetPass = async(req,res,next)=>{
     next(createHttpError(400,error.message))
   }
 } 
+ const handleResetPass =async(req,res,next)=>{
+   
+  try {
+     
+       const {token,newPassword} = req.body
+       console.log(token,newPassword)
+       
+     const tokenVerify = await jwt.verify(token,JWT_Forget)
+      // console.log("|+++++++++++")
+      // console.log(tokenVerify)
+      if(!tokenVerify){
+        next(createHttpError(404,'token is not findout'))
+      }
+      const userEmail = {email:tokenVerify.emailD};
+
+       console.log(userEmail)
+      const findByemailRestPass = await User.findOneAndUpdate(userEmail,{password:newPassword},{new:true})
+     successRespnse(res,{statusCode:201,message:'user reset successfully',payload:{findByemailRestPass}})
+  } catch (error) {
+     next(createHttpError(404,error.message))
+    
+  }
+ }
 module.exports={
   getUsers,
   getUserById,
   deleteUserId,
-  proccessRegister,
+  proccessRegister, 
   activateUserAccount,
   updateUser,
   handleBanUserById,
   handleUnBanUserById,
   handleUpdatePassword,
-  handleForgetPass
+  handleForgetPass,
+  handleResetPass
   
   
 }

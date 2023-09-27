@@ -8,7 +8,9 @@ const userRouter = require('./routes/userRouter')
 const seedRouter = require('./routes/seedRoute')
 const { errorResponse } = require('./controllers/responseController')
 const authRouters = require('./routes/authRouter')
+const categorRouters = require('./routes/categoryRouter')
 const cookieParser = require('cookie-parser')
+
 const app = express()
 const rateLimiter = rateLimit({
   windowMs : 60*1000,
@@ -28,7 +30,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use('/api/users',userRouter)
 app.use('/api/seed',seedRouter)
 app.use('/api/auth',authRouters)
-
+app.use('/api/categories',categorRouters)
 
 //app test
  app.get('/test',(req,res)=>{
