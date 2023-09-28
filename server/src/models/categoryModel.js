@@ -15,7 +15,7 @@ const CategorSchema = new Schema({
    type:String,
    required:[true,'Category slug is required'],
    lowercase:true,
-   unique:true
+  unique:[true,'Category must be unique'],
 
  }
 },{timestamps:true})

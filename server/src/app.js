@@ -10,6 +10,7 @@ const { errorResponse } = require('./controllers/responseController')
 const authRouters = require('./routes/authRouter')
 const categorRouters = require('./routes/categoryRouter')
 const cookieParser = require('cookie-parser')
+const productRouter = require('./routes/productRouter')
 
 const app = express()
 const rateLimiter = rateLimit({
@@ -31,7 +32,7 @@ app.use('/api/users',userRouter)
 app.use('/api/seed',seedRouter)
 app.use('/api/auth',authRouters)
 app.use('/api/categories',categorRouters)
-
+app.use('/api/products',productRouter)
 //app test
  app.get('/test',(req,res)=>{
   res.status(200).json({message:'i am testing parpes'})

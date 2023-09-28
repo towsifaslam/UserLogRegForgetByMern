@@ -42,6 +42,54 @@ const data ={
       phone:'0123456',
       address:'comillah chittagong'
     }
+   ],
+   products:[
+    {
+      name:'iphone 11',
+      slug: 'smart-iphone',
+      description: '2 MP, f/1.6, 26mm (wide), 1.7µm, dual pixel PDAF, sensor-shift OIS2 MP, f/1.6, 26mm (wide), 1.7µm, dual pixel PDAF, sensor-shift OIS',
+      price: 7000,
+      image: 'iphone11.jpg',
+      sold: 20,
+      quantity:80,
+      shipping:0,
+      category:'65144cfb945d725cf2088b4b'
+ },
+ {
+  name:'samsung 7',
+  slug: 'smart-samsung',
+  description: '2 MP, f/1.6, 26mm (wide), 1.7µm, dual pixel PDAF, sensor-shift OIS2 MP, f/1.6, 26mm (wide), 1.7µm, dual pixel PDAF, sensor-shift OIS',
+  price: 7000,
+  image: 'iphone11.jpg',
+  sold: 20,
+  quantity:80,
+  shipping:0,
+  category:'65144cf3945d725cf2088b49'
+},
+{
+  name:'samsung 11',
+  slug: 'smart-samsung',
+  description: '2 MP, f/1.6, 26mm (wide), 1.7µm, dual pixel PDAF, sensor-shift OIS2 MP, f/1.6, 26mm (wide), 1.7µm, dual pixel PDAF, sensor-shift OIS',
+  price: 7000,
+  image: 'iphone11.jpg',
+  sold: 20,
+  quantity:80,
+  shipping:0,
+  category:'65144cf3945d725cf2088b49'
+
+
+},
+{
+name:'i phone ',
+slug: 'smart-iphone',
+description: '2 MP, f/1.6, 26mm (wide), 1.7µm, dual pixel PDAF, sensor-shift OIS2 MP, f/1.6, 26mm (wide), 1.7µm, dual pixel PDAF, sensor-shift OIS',
+price: 7000,
+image: 'iphone11.jpg',
+sold: 20,
+quantity:80,
+shipping:0,
+category:'65144cfb945d725cf2088b4b'
+}
    ]
 }
 

@@ -1,7 +1,9 @@
 const createHttpError = require("http-errors")
 const User = require("../models/usersModel")
-const data = require("../../data")
-
+ 
+const Product = require("../models/productModel")
+const {products,data} = require('../../data')
+const { successRespnse } = require("./responseController")
 const seedGetAllUser = async(req,res,next)=>{
   try {
      await User.deleteMany({})
@@ -11,9 +13,20 @@ const seedGetAllUser = async(req,res,next)=>{
 
   } catch (error) {
     next(createHttpError(400,'User not found'))
+  } 
+}
+const seedProducts = async(req,res,next)=>{
+  try {
+    await Product.deleteMany({})
+    const product = await Product.insertMany(products);
+    successRespnse(res,{statusCode:201,message:'all data',payload:{product}})
+  } catch (error) {
+    console.log(33)
+    next(createHttpError(404,error.message))
   }
 }
 module.exports={
-   seedGetAllUser
+   seedGetAllUser,
+   seedProducts
 }
 
